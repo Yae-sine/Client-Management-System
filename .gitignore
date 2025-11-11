@@ -1,19 +1,19 @@
-# === Backend (Java, Maven, IDEs) ===
+# === ClientManagementSystem (Java, Maven, IDEs) ===
 HELP.md
-/Backend/target/
-/Backend/.mvn/wrapper/maven-wrapper.jar
-!Backend/**/src/main/**/target/
-!Backend/**/src/test/**/target/
-/Backend/src/main/resources/application.properties
+/ClientManagementSystem/target/
+/ClientManagementSystem/.mvn/wrapper/maven-wrapper.jar
+!ClientManagementSystem/**/src/main/**/target/
+!ClientManagementSystem/**/src/test/**/target/
+/ClientManagementSystem/src/main/resources/application.properties
 
 # STS
-/Backend/.apt_generated
-/Backend/.classpath
-/Backend/.factorypath
-/Backend/.project
-/Backend/.settings
-/Backend/.springBeans
-/Backend/.sts4-cache
+/ClientManagementSystem/.apt_generated
+/ClientManagementSystem/.classpath
+/ClientManagementSystem/.factorypath
+/ClientManagementSystem/.project
+/ClientManagementSystem/.settings
+/ClientManagementSystem/.springBeans
+/ClientManagementSystem/.sts4-cache
 
 # IntelliJ IDEA
 .idea
@@ -22,52 +22,19 @@ HELP.md
 *.ipr
 
 # NetBeans
-/Backend/nbproject/private/
-/Backend/nbbuild/
-/Backend/dist/
-/Backend/nbdist/
-/Backend/.nb-gradle/
-/Backend/build/
-!Backend/**/src/main/**/build/
-!Backend/**/src/test/**/build/
+/ClientManagementSystem/nbproject/private/
+/ClientManagementSystem/nbbuild/
+/ClientManagementSystem/dist/
+/ClientManagementSystem/nbdist/
+/ClientManagementSystem/.nb-gradle/
+/ClientManagementSystem/build/
+!ClientManagementSystem/**/src/main/**/build/
+!ClientManagementSystem/**/src/test/**/build/
 
 # VS Code
 .vscode/
 
-# === Frontend (Node, Angular, IDEs) ===
-/frontend/dist
-/frontend/tmp
-/frontend/out-tsc
-/frontend/bazel-out
-/frontend/node_modules
-npm-debug.log
-yarn-error.log
 
-# IDEs and editors
-/frontend/.idea/
-/frontend/.project
-/frontend/.classpath
-/frontend/.c9/
-*.launch
-/frontend/.settings/
-*.sublime-workspace
-
-# Visual Studio Code
-/frontend/.vscode/*
-!/frontend/.vscode/settings.json
-!/frontend/.vscode/tasks.json
-!/frontend/.vscode/launch.json
-!/frontend/.vscode/extensions.json
-/frontend/.history/*
-
-# Miscellaneous
-/frontend/.angular/cache
-/frontend/.sass-cache/
-/frontend/connect.lock
-/frontend/coverage
-/frontend/libpeerconnection.log
-/frontend/testem.log
-/frontend/typings
 
 # System files
 .DS_Store

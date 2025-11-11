@@ -11,8 +11,8 @@
     <groupId>ma.casablanca.ensam</groupId>
     <artifactId>JEEproject</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Backend</name>
-    <description>Backend</description>
+    <name>ClientManagementSystem</name>
+    <description>ClientManagementSystem</description>
     <url/>
     <licenses>
         <license/>
