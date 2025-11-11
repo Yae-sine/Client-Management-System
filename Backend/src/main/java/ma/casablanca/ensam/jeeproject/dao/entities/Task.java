@@ -19,12 +19,11 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String title;
     private String description;
 
     @Enumerated(EnumType.STRING)
     private TaskStatus status;
-
-    private String priority;
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
@@ -34,4 +33,7 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "project_id")
     private Project project;
+
+
+
 }
