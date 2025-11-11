@@ -1,7 +1,6 @@
 package ma.casablanca.ensam.jeeproject.service;
 
 import ma.casablanca.ensam.jeeproject.dao.entities.Employee;
-import ma.casablanca.ensam.jeeproject.dao.entities.Project;
 import ma.casablanca.ensam.jeeproject.dao.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,10 +46,5 @@ public class EmployeeManager implements EmployeeService{
     @Override
     public List<Employee> getEmployees() {
         return employeeRepository.findAll();
-    }
-
-    @Override
-    public List<Employee> getEmployeesByProject(Project project) {
-        return employeeRepository.findByProjectsContaining(project);
     }
 }

@@ -1,5 +1,6 @@
 package ma.casablanca.ensam.jeeproject.service;
 
+import ma.casablanca.ensam.jeeproject.dao.entities.Employee;
 import ma.casablanca.ensam.jeeproject.dao.entities.Project;
 import ma.casablanca.ensam.jeeproject.dao.repositories.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,5 +53,11 @@ public class ProjectManager implements ProjectService{
     @Override
     public List<Project> getProjectsByClientId(Long clientId) {
         return projectRepository.findByClientId(clientId);
+    }
+
+    @Override
+    public List<Employee> getEmployeesByProjectId(Long projectId) {
+        Optional<Project> project = projectRepository.findById(projectId);
+        return project.map(Project::getEmployees).orElse(null);
     }
 }

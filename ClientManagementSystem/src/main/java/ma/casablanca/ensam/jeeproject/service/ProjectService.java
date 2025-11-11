@@ -1,5 +1,6 @@
 package ma.casablanca.ensam.jeeproject.service;
 
+import ma.casablanca.ensam.jeeproject.dao.entities.Employee;
 import ma.casablanca.ensam.jeeproject.dao.entities.Project;
 
 import java.util.List;
@@ -12,5 +13,5 @@ public interface ProjectService {
     public Project addProject(Project project);
     public Project updateProject(Project project);
     public List<Project> getProjectsByClientId(Long clientId);
-
+    public List<Employee> getEmployeesByProjectId(Long projectId);
 }

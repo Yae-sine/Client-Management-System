@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClientManager implements ClientService{
@@ -35,5 +36,25 @@ public class ClientManager implements ClientService{
     @Override
     public Client getClient(Long id) {
         return clientRepository.findById(id).get();
+    }
+
+    @Override
+    public Client addClient(Client client) {
+        return clientRepository.save(client);
+    }
+
+    @Override
+    public Client updateClient(Client client) {
+        return clientRepository.save(client);
+    }
+
+    @Override
+    public boolean deleteClient(Long id) {
+        Optional<Client> client = clientRepository.findById(id);
+        if(client.isPresent()) {
+            clientRepository.delete(client.get());
+            return true;
+        }
+        return false;
     }
 }

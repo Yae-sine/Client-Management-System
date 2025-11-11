@@ -13,5 +13,4 @@ public interface EmployeeService {
     public Employee getEmployee(Long id);
     public Employee getEmployeeByLastName(String name);
     public List<Employee> getEmployees();
-    public List<Employee> getEmployeesByProject(Project project);
 }

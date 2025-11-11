@@ -11,4 +11,7 @@ public interface ClientService {
     public Client findClientByFirstName(String firstName);
     public Client findCLientByLastName(String lastName);
     public Client getClient(Long id);
+    public Client addClient(Client client);
+    public Client updateClient(Client client);
+    public boolean deleteClient(Long id);
 }
