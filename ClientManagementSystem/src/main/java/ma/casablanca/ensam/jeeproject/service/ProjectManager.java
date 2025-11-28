@@ -5,10 +5,12 @@ import ma.casablanca.ensam.jeeproject.dao.entities.Project;
 import ma.casablanca.ensam.jeeproject.dao.repositories.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
 @Service
 public class ProjectManager implements ProjectService{
     @Autowired
