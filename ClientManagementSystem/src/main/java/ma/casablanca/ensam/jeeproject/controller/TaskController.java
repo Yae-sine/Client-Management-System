@@ -33,11 +33,11 @@ public class TaskController {
         Task newTask = taskService.addTask(task);
         if(newTask==null){
             redirectAttributes.addFlashAttribute("message", "Task addition failed");
-            return "redirect:tasks";
+            return "redirect:/tasks";
         }
         redirectAttributes.addFlashAttribute("message", "Task has been added successfully");
         model.addAttribute("task" , newTask);
-        return "redirect:tasks";
+        return "redirect:/tasks";
     }
 
     @PutMapping("/update")
@@ -45,11 +45,11 @@ public class TaskController {
         Task updatedTask = taskService.updateTask(task);
         if(updatedTask==null){
             redirectAttributes.addFlashAttribute("message", "Task update failed");
-            return "redirect:tasks";
+            return "redirect:/tasks";
         }
         redirectAttributes.addFlashAttribute("message", "Task has been updated successfully");
         model.addAttribute("task" , updatedTask);
-        return "redirect:tasks";
+        return "redirect:/tasks";
     }
 
     @DeleteMapping("/delete/{id}")
@@ -63,6 +63,5 @@ public class TaskController {
         return "redirect:/tasks";
     }
 
-    //getTaskByTitle
 
 }

@@ -10,7 +10,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/auth")
 public class AuthController {
     @Autowired
     private UserService userService;
@@ -27,13 +26,13 @@ public class AuthController {
         if(logout !=null){
             model.addAttribute("message" , "You have been logged out successfully");
         }
-        return "auth/login";
+        return "login";
     }
 
     @GetMapping("register")
     public String showRegistrationForm(Model model){
         model.addAttribute("userDto" , new UserRegistrationDto());
-        return "auth/register";
+        return "register";
     }
 
     @PostMapping("/register")
@@ -42,15 +41,16 @@ public class AuthController {
             BindingResult result,
             Model model) {
         if(result.hasErrors()) {
-            return "auth/register";
+            return "register";
         }
         try{
+
             userService.register(dto);
-            return "redirect:/auth/login?success";
+            return "redirect:/login?success";
         }
         catch(Exception ex){
             model.addAttribute("error", ex.getMessage());
-            return "auth/register";
+            return "register";
         }
     }
 

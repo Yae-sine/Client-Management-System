@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Details - Client Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold text-indigo-600">CMS</h1>
+                    <div class="ml-10 flex space-x-4">
+                        <a th:href="@{/clients}" class="px-3 py-2 rounded-md text-sm font-medium text-indigo-600 bg-indigo-50">Clients</a>
+                        <a th:href="@{/employees}" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100">Employees</a>
+                        <a th:href="@{/projects}" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100">Projects</a>
+                        <a th:href="@{/tasks}" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100">Tasks</a>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <form th:action="@{/logout}" method="post">
+                        <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 transition">
+                            Logout
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Back Button -->
+        <div class="mb-6">
+            <a th:href="@{/clients}" class="inline-flex items-center text-indigo-600 hover:text-indigo-800">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                Back to Clients
+            </a>
+        </div>
+
+        <!-- Client Details Card -->
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+            <div class="bg-gradient-to-r from-indigo-600 to-blue-500 px-8 py-6">
+                <div class="flex items-center">
+                    <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg">
+                        <span class="text-indigo-600 font-bold text-2xl" th:text="${#strings.substring(client.firstName, 0, 1) + #strings.substring(client.lastName, 0, 1)}">JD</span>
+                    </div>
+                    <div class="ml-6">
+                        <h2 class="text-3xl font-bold text-white" th:text="${client.firstName + ' ' + client.lastName}">John Doe</h2>
+                        <p class="text-indigo-100 mt-1">Client ID: <span th:text="${client.id}">#001</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="px-8 py-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <!-- Contact Information -->
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            Contact Information
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <svg class="w-5 h-5 text-gray-400 mr-3 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                </svg>
+                                <div>
+                                    <p class="text-sm text-gray-500">Email</p>
+                                    <p class="text-gray-900 font-medium" th:text="${client.email}">john@example.com</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <svg class="w-5 h-5 text-gray-400 mr-3 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                                </svg>
+                                <div>
+                                    <p class="text-sm text-gray-500">Phone</p>
+                                    <p class="text-gray-900 font-medium" th:text="${client.phoneNumber}">+1234567890</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <svg class="w-5 h-5 text-gray-400 mr-3 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
+                                <div>
+                                    <p class="text-sm text-gray-500">Address</p>
+                                    <p class="text-gray-900 font-medium" th:text="${client.address}">123 Main St, City</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Information -->
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            Timeline
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <svg class="w-5 h-5 text-gray-400 mr-3 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                                <div>
+                                    <p class="text-sm text-gray-500">Created At</p>
+                                    <p class="text-gray-900 font-medium" th:text="${#temporals.format(client.createdAt, 'dd MMM yyyy, HH:mm')}">01 Jan 2024, 10:00</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <svg class="w-5 h-5 text-gray-400 mr-3 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                                </svg>
+                                <div>
+                                    <p class="text-sm text-gray-500">Last Updated</p>
+                                    <p class="text-gray-900 font-medium" th:text="${#temporals.format(client.updatedAt, 'dd MMM yyyy, HH:mm')}">15 Jan 2024, 14:30</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projects Section -->
+                <div class="border-t border-gray-200 pt-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-semibold text-gray-900 flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                            Associated Projects
+                        </h3>
+                        <a th:href="@{/projects/byClient/{clientId}(clientId=${client.id})}" class="text-indigo-600 hover:text-indigo-800 text-sm font-medium">
+                            View All Projects →
+                        </a>
+                    </div>
+
+                    <div th:if="${client.projects != null and !client.projects.empty}" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div th:each="project : ${client.projects}" class="bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition">
+                            <h4 class="font-semibold text-gray-900" th:text="${project.name}">Project Name</h4>
+                            <p class="text-sm text-gray-600 mt-1" th:text="${project.description}">Project Description</p>
+                            <div class="flex items-center justify-between mt-3">
+                                <span class="text-xs px-2 py-1 rounded-full"
+                                      th:classappend="${project.status == T(ma.casablanca.ensam.jeeproject.dao.entities.ProjectStatus).COMPLETED} ? 'bg-green-100 text-green-800' :
+                                                      (${project.status == T(ma.casablanca.ensam.jeeproject.dao.entities.ProjectStatus).IN_PROGRESS} ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800')"
+                                      th:text="${project.status}">IN_PROGRESS</span>
+                                <a th:href="@{/projects/{id}(id=${project.id})}" class="text-indigo-600 hover:text-indigo-800 text-sm">View →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div th:if="${client.projects == null or client.projects.empty}" class="text-center py-8 bg-gray-50 rounded-lg">
+                        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        <p class="text-gray-500 mt-2">No projects associated with this client yet.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

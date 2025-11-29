@@ -9,8 +9,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfiguration {
     private static final String[] PUBLIC_URLS = {
-        "/auth/register" ,
-        "/auth/login",
+        "/register" ,
+        "/login",
     };
 
 
@@ -20,8 +20,13 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers(PUBLIC_URLS).permitAll()
                         .anyRequest().authenticated())
-                        .formLogin(Customizer.withDefaults())
-                        .httpBasic(Customizer.withDefaults());
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .permitAll())
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .permitAll())
+                .httpBasic(Customizer.withDefaults());
         return http.build();
     }
 }

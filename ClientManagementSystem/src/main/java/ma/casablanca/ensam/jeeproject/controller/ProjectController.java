@@ -28,7 +28,7 @@ public class ProjectController {
         Project project = projectService.getProject(id);
         if(project == null){
             redirectAttributes.addFlashAttribute("message","Project not found");
-            return "redirect:projects";
+            return "redirect:/projects";
         }
         model.addAttribute("project",project);
         return "projectDetails";
