@@ -58,7 +58,7 @@ public class ClientController {
         return "redirect:/clients";
     }
     @GetMapping("/{id}")
-    public String getClientDetails(Long id, Model model , RedirectAttributes redirectAttributes) {
+    public String getClientDetails(@PathVariable Long id, Model model , RedirectAttributes redirectAttributes) {
         Client client = clientService.getClient(id);
         if (client == null) {
             redirectAttributes.addFlashAttribute("message", "Client not found");

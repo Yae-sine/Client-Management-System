@@ -1,5 +1,7 @@
 package ma.casablanca.ensam.jeeproject.controller;
+import ma.casablanca.ensam.jeeproject.dao.entities.Project;
 import ma.casablanca.ensam.jeeproject.dao.entities.Task;
+import ma.casablanca.ensam.jeeproject.service.ProjectService;
 import ma.casablanca.ensam.jeeproject.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,10 +16,16 @@ import java.util.List;
 public class TaskController {
     @Autowired
     private TaskService taskService;
+
+    @Autowired
+    private ProjectService projectService;
+
     @GetMapping
     public String allTasks(Model model) {
         List<Task> tasks=taskService.getTasks();
+        List<Project> projects = projectService.getProjects();
         model.addAttribute("tasks" , tasks);
+        model.addAttribute("projects", projects);
         return "tasks";
     }
 

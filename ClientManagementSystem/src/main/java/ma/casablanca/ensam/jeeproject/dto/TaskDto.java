@@ -1,8 +1,13 @@
 package ma.casablanca.ensam.jeeproject.dto;
 
-import ma.casablanca.ensam.jeeproject.dao.entities.Project;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import ma.casablanca.ensam.jeeproject.dao.entities.TaskStatus;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class TaskDto {
     private Long id;
     private String title;

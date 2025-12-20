@@ -7,6 +7,7 @@ import ma.casablanca.ensam.jeeproject.dto.UserRegistrationDto;
 import ma.casablanca.ensam.jeeproject.mapper.UserMapper;
 import ma.casablanca.ensam.jeeproject.mapper.UserRegistrationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,10 +22,13 @@ public class UserManager implements UserService{
     private UserRegistrationMapper userRegistrationMapper ;
     @Autowired
     private UserMapper userMapper ;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public UserDto register(UserRegistrationDto userRegistDto) {
         User user = userRegistrationMapper.toEntity(userRegistDto);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return userMapper.toDto(user);
     }

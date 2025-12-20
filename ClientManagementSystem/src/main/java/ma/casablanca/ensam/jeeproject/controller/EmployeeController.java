@@ -1,5 +1,7 @@
 package ma.casablanca.ensam.jeeproject.controller;
+import ma.casablanca.ensam.jeeproject.dao.entities.Project;
 import ma.casablanca.ensam.jeeproject.service.EmployeeService;
+import ma.casablanca.ensam.jeeproject.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,14 +17,29 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
+    @Autowired
+    private ProjectService projectService;
+
     @PostMapping
-    public String addEmployee(Employee employee, Model model, RedirectAttributes redirectAttributes) {
+    public String addEmployee(Employee employee, @RequestParam(required = false) Long projectId, Model model, RedirectAttributes redirectAttributes) {
         Employee newEmployee = employeeService.addEmployee(employee);
-        model.addAttribute("employee", newEmployee);
         if(newEmployee == null) {
             redirectAttributes.addFlashAttribute("message", "Employee addition failed");
             return "redirect:/employees";
         }
+
+        // If a project was selected, assign the employee to it
+        if(projectId != null) {
+            Project project = projectService.getProject(projectId);
+            if(project != null) {
+                if(project.getEmployees() == null) {
+                    project.setEmployees(new java.util.ArrayList<>());
+                }
+                project.getEmployees().add(newEmployee);
+                projectService.updateProject(project);
+            }
+        }
+
         redirectAttributes.addFlashAttribute("message", "Employee added successfully!");
         return "redirect:/employees";
     }
@@ -30,7 +47,9 @@ public class EmployeeController {
     @GetMapping
     public String getEmployees(Model model) {
         List<Employee> employees = employeeService.getEmployees();
+        List<Project> projects = projectService.getProjects();
         model.addAttribute("employees", employees);
+        model.addAttribute("projects", projects);
         if(employees.isEmpty()) {
             model.addAttribute("message", "No Employees found");
         }

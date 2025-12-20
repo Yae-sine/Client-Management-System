@@ -1,7 +1,9 @@
 package ma.casablanca.ensam.jeeproject.controller;
 
+import ma.casablanca.ensam.jeeproject.dao.entities.Client;
 import ma.casablanca.ensam.jeeproject.dao.entities.Employee;
 import ma.casablanca.ensam.jeeproject.dao.entities.Project;
+import ma.casablanca.ensam.jeeproject.service.ClientService;
 import ma.casablanca.ensam.jeeproject.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,15 +18,21 @@ import java.util.List;
 public class ProjectController {
     @Autowired
     private ProjectService projectService;
+
+    @Autowired
+    private ClientService clientService;
+
     @GetMapping
     public String getProjects(Model model){
         List<Project> projects =projectService.getProjects();
+        List<Client> clients = clientService.getClients();
         model.addAttribute("projects",projects);
+        model.addAttribute("clients", clients);
         return "projects";
     }
 
     @GetMapping("/{id}")
-    public String getProjectDetails(Long id , Model model , RedirectAttributes redirectAttributes ){
+    public String getProjectDetails(@PathVariable Long id , Model model , RedirectAttributes redirectAttributes ){
         Project project = projectService.getProject(id);
         if(project == null){
             redirectAttributes.addFlashAttribute("message","Project not found");
