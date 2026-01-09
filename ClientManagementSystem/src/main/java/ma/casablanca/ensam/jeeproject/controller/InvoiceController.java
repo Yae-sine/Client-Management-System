@@ -17,6 +17,16 @@ public class InvoiceController {
     @Autowired
     private InvoiceService invoiceService;
 
+    @GetMapping
+    public String getInvoices(Model model){
+        List<InvoiceDto> invoices = invoiceService.getInvoices();
+        model.addAttribute("invoices", invoices);
+        if(invoices.isEmpty()){
+            model.addAttribute("message", "No Invoices");
+        }
+        return "invoices";
+    }
+
     @PostMapping("/create")
     public String createInvoice(InvoiceDto invoiceDto, RedirectAttributes redirectAttributes){
         InvoiceDto newInvoice = invoiceService.addInvoice(invoiceDto);

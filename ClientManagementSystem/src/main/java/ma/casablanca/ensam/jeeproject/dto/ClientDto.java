@@ -3,7 +3,6 @@ package ma.casablanca.ensam.jeeproject.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ma.casablanca.ensam.jeeproject.dao.entities.Project;
 
 import java.util.List;
 

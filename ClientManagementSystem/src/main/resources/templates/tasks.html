@@ -1,27 +1,37 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tasks - Client Management System</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
 </head>
-<body class="bg-gray-50 min-h-screen">
-    <nav class="bg-white shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <h1 class="text-2xl font-bold text-indigo-600">CMS</h1>
-                    <div class="ml-10 flex space-x-4">
-                        <a th:href="@{/clients}" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100">Clients</a>
-                        <a th:href="@{/employees}" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100">Employees</a>
-                        <a th:href="@{/projects}" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100">Projects</a>
-                        <a th:href="@{/tasks}" class="px-3 py-2 rounded-md text-sm font-medium text-indigo-600 bg-indigo-50">Tasks</a>
+<body class="bg-slate-50 min-h-screen">
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-8">
+                    <a th:href="@{/}" class="flex items-center gap-3">
+                        <div class="w-9 h-9 bg-slate-800 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold text-sm">CMS</span>
+                        </div>
+                        <span class="text-xl font-semibold text-slate-800">ClientMS</span>
+                    </a>
+                    <div class="hidden md:flex items-center gap-1">
+                        <a th:href="@{/clients}" class="px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition">Clients</a>
+                        <a th:href="@{/projects}" class="px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition">Projects</a>
+                        <a th:href="@{/employees}" class="px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition">Employees</a>
+                        <a th:href="@{/tasks}" class="px-4 py-2 rounded-lg text-sm font-medium bg-slate-100 text-slate-900">Tasks</a>
+                        <a th:href="@{/invoices}" class="px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition">Invoices</a>
                     </div>
                 </div>
-                <div class="flex items-center">
+                <div class="flex items-center gap-3">
                     <form th:action="@{/logout}" method="post">
-                        <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 transition">
+                        <button type="submit" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg transition">
                             Logout
                         </button>
                     </form>
@@ -30,26 +40,24 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <!-- Header -->
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-8">
+
         <div class="mb-8">
             <div class="flex justify-between items-center">
                 <div>
-                    <h2 class="text-3xl font-bold text-gray-900">Tasks</h2>
-                    <p class="text-gray-600 mt-1">Manage your project tasks</p>
+                    <h2 class="text-3xl font-bold text-slate-900">Tasks</h2>
+                    <p class="text-slate-500 mt-1">Manage your project tasks</p>
                 </div>
-                <button onclick="openAddModal()" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition flex items-center">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button onclick="openAddModal()" class="bg-slate-800 text-white px-5 py-2.5 rounded-lg font-medium hover:bg-slate-700 transition flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                     </svg>
-                    Add New Task
+                    Add Task
                 </button>
             </div>
         </div>
 
-        <!-- Flash Messages -->
-        <div th:if="${message}" class="mb-6 p-4 bg-blue-50 border-l-4 border-blue-500 text-blue-700 rounded">
+        <div th:if="${message}" class="mb-6 p-4 bg-slate-100 border-l-4 border-slate-500 text-slate-700 rounded">
             <div class="flex items-center">
                 <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
@@ -58,90 +66,86 @@
             </div>
         </div>
 
-        <!-- Tasks Kanban Board -->
         <div th:if="${tasks != null and !tasks.empty}">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- To Do Column -->
-                <div class="bg-gray-100 rounded-lg p-4">
+                <div class="bg-slate-100 rounded-xl p-4">
                     <div class="flex items-center justify-between mb-4">
-                        <h3 class="font-bold text-gray-700 flex items-center">
-                            <span class="w-3 h-3 bg-gray-500 rounded-full mr-2"></span>
+                        <h3 class="font-semibold text-slate-700 flex items-center">
+                            <span class="w-3 h-3 bg-slate-400 rounded-full mr-2"></span>
                             TO DO
                         </h3>
-                        <span class="bg-gray-200 text-gray-700 text-xs font-semibold px-2 py-1 rounded"
+                        <span class="bg-slate-200 text-slate-700 text-xs font-semibold px-2 py-1 rounded"
                               th:text="${tasks.?[status == T(ma.casablanca.ensam.jeeproject.dao.entities.TaskStatus).TO_DO].size()}">0</span>
                     </div>
                     <div class="space-y-3">
                         <div th:each="task : ${tasks.?[status == T(ma.casablanca.ensam.jeeproject.dao.entities.TaskStatus).TO_DO]}"
-                             class="bg-white rounded-lg p-4 shadow hover:shadow-md transition cursor-pointer"
+                             class="bg-white rounded-lg p-4 border border-slate-200 hover:border-slate-300 hover:shadow-md transition cursor-pointer"
                              th:onclick="'window.location.href=\'/tasks/' + ${task.id} + '\''">
-                            <h4 class="font-semibold text-gray-900 mb-2" th:text="${task.title}">Task Title</h4>
-                            <p class="text-sm text-gray-600 mb-3" th:text="${task.description}">Task description</p>
+                            <h4 class="font-semibold text-slate-900 mb-2" th:text="${task.title}">Task Title</h4>
+                            <p class="text-sm text-slate-500 mb-3" th:text="${task.description}">Task description</p>
                             <div class="flex items-center justify-between">
-                                <span class="text-xs text-gray-500" th:if="${task.project != null}" th:text="${task.project.name}">Project</span>
+                                <span class="text-xs text-slate-400" th:if="${task.project != null}" th:text="${task.project.name}">Project</span>
                                 <button onclick="event.stopPropagation(); openEditModal(this)"
                                         th:data-id="${task.id}"
                                         th:data-title="${task.title}"
                                         th:data-description="${task.description}"
                                         th:data-status="${task.status}"
                                         th:data-projectid="${task.project != null ? task.project.id : ''}"
-                                        class="text-indigo-600 hover:text-indigo-800 text-xs">Edit</button>
+                                        class="text-slate-600 hover:text-slate-800 text-xs font-medium">Edit</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- In Progress Column -->
-                <div class="bg-blue-50 rounded-lg p-4">
+                <div class="bg-blue-50 rounded-xl p-4">
                     <div class="flex items-center justify-between mb-4">
-                        <h3 class="font-bold text-blue-700 flex items-center">
+                        <h3 class="font-semibold text-blue-700 flex items-center">
                             <span class="w-3 h-3 bg-blue-500 rounded-full mr-2"></span>
                             IN PROGRESS
                         </h3>
-                        <span class="bg-blue-200 text-blue-700 text-xs font-semibold px-2 py-1 rounded"
+                        <span class="bg-blue-100 text-blue-700 text-xs font-semibold px-2 py-1 rounded"
                               th:text="${tasks.?[status == T(ma.casablanca.ensam.jeeproject.dao.entities.TaskStatus).IN_PROGRESS].size()}">0</span>
                     </div>
                     <div class="space-y-3">
                         <div th:each="task : ${tasks.?[status == T(ma.casablanca.ensam.jeeproject.dao.entities.TaskStatus).IN_PROGRESS]}"
-                             class="bg-white rounded-lg p-4 shadow hover:shadow-md transition cursor-pointer"
+                             class="bg-white rounded-lg p-4 border border-slate-200 hover:border-slate-300 hover:shadow-md transition cursor-pointer"
                              th:onclick="'window.location.href=\'/tasks/' + ${task.id} + '\''">
-                            <h4 class="font-semibold text-gray-900 mb-2" th:text="${task.title}">Task Title</h4>
-                            <p class="text-sm text-gray-600 mb-3" th:text="${task.description}">Task description</p>
+                            <h4 class="font-semibold text-slate-900 mb-2" th:text="${task.title}">Task Title</h4>
+                            <p class="text-sm text-slate-500 mb-3" th:text="${task.description}">Task description</p>
                             <div class="flex items-center justify-between">
-                                <span class="text-xs text-gray-500" th:if="${task.project != null}" th:text="${task.project.name}">Project</span>
+                                <span class="text-xs text-slate-400" th:if="${task.project != null}" th:text="${task.project.name}">Project</span>
                                 <button onclick="event.stopPropagation(); openEditModal(this)"
                                         th:data-id="${task.id}"
                                         th:data-title="${task.title}"
                                         th:data-description="${task.description}"
                                         th:data-status="${task.status}"
                                         th:data-projectid="${task.project != null ? task.project.id : ''}"
-                                        class="text-indigo-600 hover:text-indigo-800 text-xs">Edit</button>
+                                        class="text-slate-600 hover:text-slate-800 text-xs font-medium">Edit</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Completed Column -->
-                <div class="bg-green-50 rounded-lg p-4">
+                <div class="bg-emerald-50 rounded-xl p-4">
                     <div class="flex items-center justify-between mb-4">
-                        <h3 class="font-bold text-green-700 flex items-center">
-                            <span class="w-3 h-3 bg-green-500 rounded-full mr-2"></span>
+                        <h3 class="font-semibold text-emerald-700 flex items-center">
+                            <span class="w-3 h-3 bg-emerald-500 rounded-full mr-2"></span>
                             COMPLETED
                         </h3>
-                        <span class="bg-green-200 text-green-700 text-xs font-semibold px-2 py-1 rounded"
+                        <span class="bg-emerald-100 text-emerald-700 text-xs font-semibold px-2 py-1 rounded"
                               th:text="${tasks.?[status == T(ma.casablanca.ensam.jeeproject.dao.entities.TaskStatus).COMPLETED].size()}">0</span>
                     </div>
                     <div class="space-y-3">
                         <div th:each="task : ${tasks.?[status == T(ma.casablanca.ensam.jeeproject.dao.entities.TaskStatus).COMPLETED]}"
-                             class="bg-white rounded-lg p-4 shadow hover:shadow-md transition cursor-pointer"
+                             class="bg-white rounded-lg p-4 border border-slate-200 hover:border-slate-300 hover:shadow-md transition cursor-pointer"
                              th:onclick="'window.location.href=\'/tasks/' + ${task.id} + '\''">
-                            <h4 class="font-semibold text-gray-900 mb-2" th:text="${task.title}">Task Title</h4>
-                            <p class="text-sm text-gray-600 mb-3" th:text="${task.description}">Task description</p>
+                            <h4 class="font-semibold text-slate-900 mb-2" th:text="${task.title}">Task Title</h4>
+                            <p class="text-sm text-slate-500 mb-3" th:text="${task.description}">Task description</p>
                             <div class="flex items-center justify-between">
-                                <span class="text-xs text-gray-500" th:if="${task.project != null}" th:text="${task.project.name}">Project</span>
+                                <span class="text-xs text-slate-400" th:if="${task.project != null}" th:text="${task.project.name}">Project</span>
                                 <button onclick="event.stopPropagation(); deleteTask(this)"
                                         th:data-id="${task.id}"
-                                        class="text-red-600 hover:text-red-800 text-xs">Delete</button>
+                                        class="text-red-600 hover:text-red-800 text-xs font-medium">Delete</button>
                             </div>
                         </div>
                     </div>
@@ -149,22 +153,20 @@
             </div>
         </div>
 
-        <!-- Empty State -->
         <div th:if="${tasks == null or tasks.empty}" class="text-center py-12">
-            <svg class="mx-auto h-24 w-24 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="mx-auto h-24 w-24 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
             </svg>
-            <h3 class="mt-4 text-lg font-medium text-gray-900">No tasks found</h3>
-            <p class="mt-2 text-sm text-gray-500">Get started by creating a new task.</p>
+            <h3 class="mt-4 text-lg font-medium text-slate-900">No tasks found</h3>
+            <p class="mt-2 text-sm text-slate-500">Get started by creating a new task.</p>
         </div>
     </div>
 
-    <!-- Add Task Modal -->
-    <div id="addModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-xl bg-white">
+    <div id="addModal" class="hidden fixed inset-0 bg-slate-900 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+        <div class="relative top-20 mx-auto p-5 border border-slate-200 w-96 shadow-lg rounded-xl bg-white">
             <div class="flex justify-between items-center mb-4">
-                <h3 class="text-xl font-bold text-gray-900">Add New Task</h3>
-                <button onclick="closeAddModal()" class="text-gray-400 hover:text-gray-600">
+                <h3 class="text-xl font-bold text-slate-900">Add New Task</h3>
+                <button onclick="closeAddModal()" class="text-slate-400 hover:text-slate-600">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
@@ -172,42 +174,41 @@
             </div>
             <form th:action="@{/tasks/add}" method="post" class="space-y-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Title</label>
-                    <input type="text" name="title" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Title</label>
+                    <input type="text" name="title" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-transparent">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                    <textarea name="description" rows="3" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"></textarea>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Description</label>
+                    <textarea name="description" rows="3" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-transparent"></textarea>
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Project</label>
-                    <select name="project.id" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Project</label>
+                    <select name="project.id" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-transparent">
                         <option value="">-- Select a Project --</option>
                         <option th:each="project : ${projects}" th:value="${project.id}" th:text="${project.name}">Project Name</option>
                     </select>
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
-                    <select name="status" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Status</label>
+                    <select name="status" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-transparent">
                         <option value="TO_DO">To Do</option>
                         <option value="IN_PROGRESS">In Progress</option>
                         <option value="COMPLETED">Completed</option>
                     </select>
                 </div>
                 <div class="flex space-x-3 pt-4">
-                    <button type="button" onclick="closeAddModal()" class="flex-1 px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition">Cancel</button>
-                    <button type="submit" class="flex-1 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">Add Task</button>
+                    <button type="button" onclick="closeAddModal()" class="flex-1 px-4 py-2 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 transition">Cancel</button>
+                    <button type="submit" class="flex-1 px-4 py-2 bg-slate-800 text-white rounded-lg hover:bg-slate-700 transition">Add Task</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- Edit Task Modal -->
-    <div id="editModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-xl bg-white">
+    <div id="editModal" class="hidden fixed inset-0 bg-slate-900 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+        <div class="relative top-20 mx-auto p-5 border border-slate-200 w-96 shadow-lg rounded-xl bg-white">
             <div class="flex justify-between items-center mb-4">
-                <h3 class="text-xl font-bold text-gray-900">Edit Task</h3>
-                <button onclick="closeEditModal()" class="text-gray-400 hover:text-gray-600">
+                <h3 class="text-xl font-bold text-slate-900">Edit Task</h3>
+                <button onclick="closeEditModal()" class="text-slate-400 hover:text-slate-600">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
@@ -217,37 +218,36 @@
                 <input type="hidden" name="_method" value="PUT">
                 <input type="hidden" name="id" id="editId">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Title</label>
-                    <input type="text" name="title" id="editTitle" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Title</label>
+                    <input type="text" name="title" id="editTitle" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-transparent">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                    <textarea name="description" id="editDescription" rows="3" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"></textarea>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Description</label>
+                    <textarea name="description" id="editDescription" rows="3" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-transparent"></textarea>
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Project</label>
-                    <select name="project.id" id="editProjectId" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Project</label>
+                    <select name="project.id" id="editProjectId" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-transparent">
                         <option value="">-- Select a Project --</option>
                         <option th:each="project : ${projects}" th:value="${project.id}" th:text="${project.name}">Project Name</option>
                     </select>
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
-                    <select name="status" id="editStatus" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Status</label>
+                    <select name="status" id="editStatus" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-transparent">
                         <option value="TO_DO">To Do</option>
                         <option value="IN_PROGRESS">In Progress</option>
                         <option value="COMPLETED">Completed</option>
                     </select>
                 </div>
                 <div class="flex space-x-3 pt-4">
-                    <button type="button" onclick="closeEditModal()" class="flex-1 px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition">Cancel</button>
-                    <button type="submit" class="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">Update Task</button>
+                    <button type="button" onclick="closeEditModal()" class="flex-1 px-4 py-2 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 transition">Cancel</button>
+                    <button type="submit" class="flex-1 px-4 py-2 bg-slate-800 text-white rounded-lg hover:bg-slate-700 transition">Update</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- Delete Form (Hidden) -->
     <form id="deleteForm" th:action="@{/tasks/delete/{id}(id=0)}" method="post" style="display: none;">
         <input type="hidden" name="_method" value="DELETE">
     </form>

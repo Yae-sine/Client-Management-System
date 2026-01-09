@@ -1,28 +1,38 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invoices - Client Management System</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
 </head>
-<body class="bg-gray-50 min-h-screen">
-    <!-- Navigation -->
-    <nav class="bg-white shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <h1 class="text-2xl font-bold text-indigo-600">CMS</h1>
-                    <div class="ml-10 flex space-x-4">
-                        <a th:href="@{/clients}" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100">Clients</a>
-                        <a th:href="@{/employees}" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100">Employees</a>
-                        <a th:href="@{/projects}" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100">Projects</a>
-                        <a th:href="@{/tasks}" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100">Tasks</a>
+<body class="bg-slate-50 min-h-screen">
+
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-8">
+                    <a th:href="@{/}" class="flex items-center gap-3">
+                        <div class="w-9 h-9 bg-slate-800 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold text-sm">CMS</span>
+                        </div>
+                        <span class="text-xl font-semibold text-slate-800">ClientMS</span>
+                    </a>
+                    <div class="hidden md:flex items-center gap-1">
+                        <a th:href="@{/clients}" class="px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition">Clients</a>
+                        <a th:href="@{/projects}" class="px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition">Projects</a>
+                        <a th:href="@{/employees}" class="px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition">Employees</a>
+                        <a th:href="@{/tasks}" class="px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition">Tasks</a>
+                        <a th:href="@{/invoices}" class="px-4 py-2 rounded-lg text-sm font-medium bg-slate-100 text-slate-900">Invoices</a>
                     </div>
                 </div>
-                <div class="flex items-center">
+                <div class="flex items-center gap-3">
                     <form th:action="@{/logout}" method="post">
-                        <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 transition">
+                        <button type="submit" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg transition">
                             Logout
                         </button>
                     </form>
@@ -31,17 +41,16 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <!-- Header -->
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-8">
+
         <div class="mb-8">
             <div class="flex justify-between items-center">
                 <div>
-                    <h2 class="text-3xl font-bold text-gray-900">Invoices</h2>
-                    <p class="text-gray-600 mt-1">Manage project invoices and payments</p>
+                    <h2 class="text-3xl font-bold text-slate-900">Invoices</h2>
+                    <p class="text-slate-500 mt-1">Manage project invoices and payments</p>
                 </div>
-                <button onclick="openAddModal()" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition flex items-center">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button onclick="openAddModal()" class="bg-slate-800 text-white px-5 py-2.5 rounded-lg font-medium hover:bg-slate-700 transition flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                     </svg>
                     Create Invoice
@@ -49,8 +58,7 @@
             </div>
         </div>
 
-        <!-- Flash Messages -->
-        <div th:if="${message}" class="mb-6 p-4 bg-blue-50 border-l-4 border-blue-500 text-blue-700 rounded">
+        <div th:if="${message}" class="mb-6 p-4 bg-slate-100 border-l-4 border-slate-500 text-slate-700 rounded">
             <div class="flex items-center">
                 <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
@@ -59,38 +67,35 @@
             </div>
         </div>
 
-        <!-- Invoices Grid -->
         <div th:if="${invoices != null and !invoices.empty}" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div th:each="invoice : ${invoices}" class="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+            <div th:each="invoice : ${invoices}" class="bg-white rounded-xl border border-slate-200 hover:border-slate-300 hover:shadow-lg transition-all duration-300 overflow-hidden">
                 <div class="p-6">
                     <div class="flex items-center justify-between mb-4">
                         <div>
-                            <h3 class="text-lg font-bold text-gray-900">Invoice #<span th:text="${invoice.id}">001</span></h3>
-                            <p class="text-sm text-gray-500" th:if="${invoice.project != null}" th:text="${invoice.project.name}">Project Name</p>
+                            <h3 class="text-lg font-semibold text-slate-900">Invoice #<span th:text="${invoice.id}">001</span></h3>
+                            <p class="text-sm text-slate-500" th:if="${invoice.project != null}" th:text="${invoice.project.name}">Project Name</p>
                         </div>
-                        <span class="text-xs px-3 py-1 rounded-full font-semibold"
-                              th:classappend="${invoice.status == T(ma.casablanca.ensam.jeeproject.dao.entities.InvoiceStatus).PAID} ? 'bg-green-100 text-green-800' :
-                                              (${invoice.status == T(ma.casablanca.ensam.jeeproject.dao.entities.InvoiceStatus).PENDING} ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800')"
+                        <span class="text-xs px-3 py-1 rounded-full font-medium"
+                              th:classappend="${invoice.status == T(ma.casablanca.ensam.jeeproject.dao.entities.InvoiceStatus).PAID} ? 'bg-emerald-100 text-emerald-700' :
+                                              (${invoice.status == T(ma.casablanca.ensam.jeeproject.dao.entities.InvoiceStatus).PENDING} ? 'bg-amber-100 text-amber-700' : 'bg-red-100 text-red-700')"
                               th:text="${invoice.status}">PENDING</span>
                     </div>
 
                     <div class="mb-4">
                         <div class="flex items-baseline">
-                            <span class="text-3xl font-bold text-gray-900">$<span th:text="${invoice.amount}">1000</span></span>
+                            <span class="text-3xl font-bold text-slate-900">$<span th:text="${invoice.amount}">1000</span></span>
                         </div>
                     </div>
 
-
-
-                    <div class="flex space-x-2 pt-4 border-t border-gray-200">
-                        <a th:href="@{/invoices/{id}(id=${invoice.id})}" class="flex-1 bg-indigo-50 text-indigo-600 px-4 py-2 rounded-lg text-center text-sm font-medium hover:bg-indigo-100 transition">
+                    <div class="flex space-x-2 pt-4 border-t border-slate-100">
+                        <a th:href="@{/invoices/{id}(id=${invoice.id})}" class="flex-1 bg-slate-100 text-slate-700 px-4 py-2 rounded-lg text-center text-sm font-medium hover:bg-slate-200 transition">
                             View
                         </a>
                         <button onclick="openEditModal(this)"
                                 th:data-id="${invoice.id}"
                                 th:data-amount="${invoice.amount}"
                                 th:data-status="${invoice.status}"
-                                class="flex-1 bg-green-50 text-green-600 px-4 py-2 rounded-lg text-center text-sm font-medium hover:bg-green-100 transition">
+                                class="flex-1 bg-slate-100 text-slate-700 px-4 py-2 rounded-lg text-center text-sm font-medium hover:bg-slate-200 transition">
                             Edit
                         </button>
                         <button onclick="deleteInvoice(this)"
@@ -103,22 +108,20 @@
             </div>
         </div>
 
-        <!-- Empty State -->
         <div th:if="${invoices == null or invoices.empty}" class="text-center py-12">
-            <svg class="mx-auto h-24 w-24 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="mx-auto h-24 w-24 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
             </svg>
-            <h3 class="mt-4 text-lg font-medium text-gray-900">No invoices found</h3>
-            <p class="mt-2 text-sm text-gray-500">Get started by creating a new invoice.</p>
+            <h3 class="mt-4 text-lg font-medium text-slate-900">No invoices found</h3>
+            <p class="mt-2 text-sm text-slate-500">Get started by creating a new invoice.</p>
         </div>
     </div>
 
-    <!-- Add Invoice Modal -->
-    <div id="addModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-xl bg-white">
+    <div id="addModal" class="hidden fixed inset-0 bg-slate-900 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+        <div class="relative top-20 mx-auto p-5 border border-slate-200 w-96 shadow-lg rounded-xl bg-white">
             <div class="flex justify-between items-center mb-4">
-                <h3 class="text-xl font-bold text-gray-900">Create Invoice</h3>
-                <button onclick="closeAddModal()" class="text-gray-400 hover:text-gray-600">
+                <h3 class="text-xl font-bold text-slate-900">Create Invoice</h3>
+                <button onclick="closeAddModal()" class="text-slate-400 hover:text-slate-600">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
@@ -126,31 +129,30 @@
             </div>
             <form th:action="@{/invoices/create}" method="post" class="space-y-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Amount</label>
-                    <input type="number" name="amount" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Amount</label>
+                    <input type="number" name="amount" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-transparent">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
-                    <select name="status" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Status</label>
+                    <select name="status" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-transparent">
                         <option value="PENDING">Pending</option>
                         <option value="PAID">Paid</option>
                         <option value="OVERDUE">Overdue</option>
                     </select>
                 </div>
                 <div class="flex space-x-3 pt-4">
-                    <button type="button" onclick="closeAddModal()" class="flex-1 px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition">Cancel</button>
-                    <button type="submit" class="flex-1 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">Create Invoice</button>
+                    <button type="button" onclick="closeAddModal()" class="flex-1 px-4 py-2 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 transition">Cancel</button>
+                    <button type="submit" class="flex-1 px-4 py-2 bg-slate-800 text-white rounded-lg hover:bg-slate-700 transition">Create</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- Edit Invoice Modal -->
-    <div id="editModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-xl bg-white">
+    <div id="editModal" class="hidden fixed inset-0 bg-slate-900 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+        <div class="relative top-20 mx-auto p-5 border border-slate-200 w-96 shadow-lg rounded-xl bg-white">
             <div class="flex justify-between items-center mb-4">
-                <h3 class="text-xl font-bold text-gray-900">Edit Invoice</h3>
-                <button onclick="closeEditModal()" class="text-gray-400 hover:text-gray-600">
+                <h3 class="text-xl font-bold text-slate-900">Edit Invoice</h3>
+                <button onclick="closeEditModal()" class="text-slate-400 hover:text-slate-600">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
@@ -160,26 +162,25 @@
                 <input type="hidden" name="_method" value="PUT">
                 <input type="hidden" name="id" id="editId">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Amount</label>
-                    <input type="number" name="amount" id="editAmount" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Amount</label>
+                    <input type="number" name="amount" id="editAmount" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-transparent">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
-                    <select name="status" id="editStatus" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Status</label>
+                    <select name="status" id="editStatus" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-transparent">
                         <option value="PENDING">Pending</option>
                         <option value="PAID">Paid</option>
                         <option value="OVERDUE">Overdue</option>
                     </select>
                 </div>
                 <div class="flex space-x-3 pt-4">
-                    <button type="button" onclick="closeEditModal()" class="flex-1 px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition">Cancel</button>
-                    <button type="submit" class="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">Update Invoice</button>
+                    <button type="button" onclick="closeEditModal()" class="flex-1 px-4 py-2 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 transition">Cancel</button>
+                    <button type="submit" class="flex-1 px-4 py-2 bg-slate-800 text-white rounded-lg hover:bg-slate-700 transition">Update</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- Delete Form (Hidden) -->
     <form id="deleteForm" th:action="@{/invoices/delete}" method="post" style="display: none;">
         <input type="hidden" name="_method" value="DELETE">
         <input type="hidden" name="id" id="deleteId">

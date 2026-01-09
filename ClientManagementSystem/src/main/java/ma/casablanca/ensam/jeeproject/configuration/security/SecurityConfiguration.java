@@ -10,7 +10,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfiguration {
     private static final String[] PUBLIC_URLS = {
         "/register" ,
-        "/login",
+        "/login", "/index" ,"/"
     };
 
 
@@ -22,6 +22,7 @@ public class SecurityConfiguration {
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/login")
+                        .defaultSuccessUrl("/clients", true)
                         .permitAll())
                 .logout(logout -> logout
                         .logoutUrl("/logout")

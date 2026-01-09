@@ -1,28 +1,38 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invoice Details - Client Management System</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
 </head>
-<body class="bg-gray-50 min-h-screen">
-    <!-- Navigation -->
-    <nav class="bg-white shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <h1 class="text-2xl font-bold text-indigo-600">CMS</h1>
-                    <div class="ml-10 flex space-x-4">
-                        <a th:href="@{/clients}" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100">Clients</a>
-                        <a th:href="@{/employees}" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100">Employees</a>
-                        <a th:href="@{/projects}" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100">Projects</a>
-                        <a th:href="@{/tasks}" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100">Tasks</a>
+<body class="bg-slate-50 min-h-screen">
+
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-8">
+                    <a th:href="@{/}" class="flex items-center gap-3">
+                        <div class="w-9 h-9 bg-slate-800 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold text-sm">CMS</span>
+                        </div>
+                        <span class="text-xl font-semibold text-slate-800">ClientMS</span>
+                    </a>
+                    <div class="hidden md:flex items-center gap-1">
+                        <a th:href="@{/clients}" class="px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition">Clients</a>
+                        <a th:href="@{/projects}" class="px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition">Projects</a>
+                        <a th:href="@{/employees}" class="px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition">Employees</a>
+                        <a th:href="@{/tasks}" class="px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition">Tasks</a>
+                        <a th:href="@{/invoices}" class="px-4 py-2 rounded-lg text-sm font-medium bg-slate-100 text-slate-900">Invoices</a>
                     </div>
                 </div>
-                <div class="flex items-center">
+                <div class="flex items-center gap-3">
                     <form th:action="@{/logout}" method="post">
-                        <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 transition">
+                        <button type="submit" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg transition">
                             Logout
                         </button>
                     </form>
@@ -31,11 +41,10 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <!-- Back Button -->
+    <div class="max-w-4xl mx-auto px-6 lg:px-8 py-8">
+
         <div class="mb-6">
-            <a th:href="@{/invoices}" class="inline-flex items-center text-indigo-600 hover:text-indigo-800">
+            <a th:href="@{/invoices}" class="inline-flex items-center text-slate-600 hover:text-slate-800">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                 </svg>
@@ -43,24 +52,23 @@
             </a>
         </div>
 
-        <!-- Invoice Details Card -->
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-            <div class="bg-gradient-to-r from-emerald-600 to-teal-600 px-8 py-6">
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden">
+            <div class="bg-slate-800 px-8 py-6">
                 <div class="flex items-center justify-between">
                     <div>
                         <h2 class="text-3xl font-bold text-white">Invoice #<span th:text="${invoice.id}">001</span></h2>
-                        <p class="text-emerald-100 mt-1">Invoice Details</p>
+                        <p class="text-slate-300 mt-1">Invoice Details</p>
                     </div>
-                    <span class="text-sm px-4 py-2 rounded-full font-semibold"
-                          th:classappend="${invoice.status == T(ma.casablanca.ensam.jeeproject.dao.entities.InvoiceStatus).PAID} ? 'bg-green-100 text-green-800' :
-                                          (${invoice.status == T(ma.casablanca.ensam.jeeproject.dao.entities.InvoiceStatus).PENDING} ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800')"
+                    <span class="text-sm px-4 py-2 rounded-full font-medium"
+                          th:classappend="${invoice.status == T(ma.casablanca.ensam.jeeproject.dao.entities.InvoiceStatus).PAID} ? 'bg-emerald-100 text-emerald-700' :
+                                          (${invoice.status == T(ma.casablanca.ensam.jeeproject.dao.entities.InvoiceStatus).PENDING} ? 'bg-amber-100 text-amber-700' : 'bg-red-100 text-red-700')"
                           th:text="${invoice.status}">PENDING</span>
                 </div>
             </div>
 
             <div class="px-8 py-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <!-- Invoice Information -->
+
                     <div>
                         <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
                             <svg class="w-5 h-5 mr-2 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -85,7 +93,6 @@
                         </div>
                     </div>
 
-                    <!-- Project & Timeline -->
                     <div>
                         <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
                             <svg class="w-5 h-5 mr-2 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -111,7 +118,6 @@
                     </div>
                 </div>
 
-                <!-- Timeline -->
                 <div class="border-t border-gray-200 pt-6 mb-6">
                     <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
                         <svg class="w-5 h-5 mr-2 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -122,7 +128,6 @@
 
                 </div>
 
-                <!-- Client Information (if available through project) -->
                 <div th:if="${invoice.project != null and invoice.project.client != null}" class="border-t border-gray-200 pt-6 mb-6">
                     <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
                         <svg class="w-5 h-5 mr-2 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -152,7 +157,6 @@
                     </div>
                 </div>
 
-                <!-- Actions -->
                 <div class="border-t border-gray-200 pt-6">
                     <div class="flex space-x-3">
                         <button onclick="openEditModal()"
@@ -175,7 +179,6 @@
         </div>
     </div>
 
-    <!-- Edit Invoice Modal -->
     <div id="editModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
         <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-xl bg-white">
             <div class="flex justify-between items-center mb-4">
@@ -209,7 +212,6 @@
         </div>
     </div>
 
-    <!-- Delete Form (Hidden) -->
     <form id="deleteForm" th:action="@{/invoices/delete}" method="post" style="display: none;">
         <input type="hidden" name="_method" value="DELETE">
         <input type="hidden" name="id" th:value="${invoice.id}">
