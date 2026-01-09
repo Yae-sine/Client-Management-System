@@ -1,7 +1,9 @@
 package ma.casablanca.ensam.jeeproject.controller;
 
 import ma.casablanca.ensam.jeeproject.dto.InvoiceDto;
+import ma.casablanca.ensam.jeeproject.dto.ProjectDto;
 import ma.casablanca.ensam.jeeproject.service.InvoiceService;
+import ma.casablanca.ensam.jeeproject.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,10 +19,15 @@ public class InvoiceController {
     @Autowired
     private InvoiceService invoiceService;
 
+    @Autowired
+    private ProjectService projectService;
+
     @GetMapping
     public String getInvoices(Model model){
         List<InvoiceDto> invoices = invoiceService.getInvoices();
+        List<ProjectDto> projects = projectService.getProjects();
         model.addAttribute("invoices", invoices);
+        model.addAttribute("projects", projects);
         if(invoices.isEmpty()){
             model.addAttribute("message", "No Invoices");
         }
@@ -77,7 +84,9 @@ public class InvoiceController {
             redirectAttributes.addFlashAttribute("message", "Invoice not found");
             return "redirect:/invoices";
         }
+        List<ProjectDto> projects = projectService.getProjects();
         model.addAttribute("invoice", invoice.get());
+        model.addAttribute("projects", projects);
         return "invoiceDetails";
     }
 }

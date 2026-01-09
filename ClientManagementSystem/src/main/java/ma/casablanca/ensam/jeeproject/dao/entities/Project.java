@@ -41,11 +41,11 @@ public class Project {
     @OneToMany(mappedBy = "project")
     private List<Invoice> invoices;
 
-    @ManyToMany( fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "project_employee",
-            joinColumns = @JoinColumn(name = "project_id") ,
-            inverseJoinColumns = @JoinColumn(name = "employee_id")
+            joinColumns = @JoinColumn(name = "project_id", nullable = true),
+            inverseJoinColumns = @JoinColumn(name = "employee_id", nullable = true)
     )
     private List<Employee> employees;
 

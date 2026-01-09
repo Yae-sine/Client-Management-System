@@ -31,6 +31,6 @@ public class Employee {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @ManyToMany(mappedBy = "employees",fetch = FetchType.EAGER)
-    private List<Project> projects;
+    @ManyToMany(mappedBy = "employees", fetch = FetchType.EAGER)
+    private List<Project> projects = new java.util.ArrayList<>();
 }

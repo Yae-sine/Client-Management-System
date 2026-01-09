@@ -103,35 +103,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <div>
-                        <h3 class="text-lg font-semibold text-slate-900 mb-4 flex items-center">
-                            <svg class="w-5 h-5 mr-2 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            Timeline
-                        </h3>
-                        <div class="space-y-4">
-                            <div class="flex items-start">
-                                <svg class="w-5 h-5 text-slate-400 mr-3 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                </svg>
-                                <div>
-                                    <p class="text-sm text-slate-500">Start Date</p>
-                                    <p class="text-slate-900 font-medium" th:text="${project.startDate != null ? #temporals.format(project.startDate, 'dd MMM yyyy') : 'Not set'}">01 Jan 2024</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <svg class="w-5 h-5 text-slate-400 mr-3 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                </svg>
-                                <div>
-                                    <p class="text-sm text-slate-500">End Date</p>
-                                    <p class="text-slate-900 font-medium" th:text="${project.endDate != null ? #temporals.format(project.endDate, 'dd MMM yyyy') : 'Not set'}">31 Dec 2024</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="border-t border-slate-200 pt-6 mb-6">

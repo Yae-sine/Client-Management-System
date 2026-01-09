@@ -39,10 +39,14 @@ public class EmployeeManager implements EmployeeService{
         Employee savedEmployee = employeeRepository.save(employee);
 
         if (projectId != null) {
-            Optional<Project> project = projectRepository.findById(projectId);
-            if (project.isPresent()) {
-                project.get().getEmployees().add(savedEmployee);
-                projectRepository.save(project.get());
+            Optional<Project> projectOpt = projectRepository.findById(projectId);
+            if (projectOpt.isPresent()) {
+                Project project = projectOpt.get();
+                if (project.getEmployees() == null) {
+                    project.setEmployees(new java.util.ArrayList<>());
+                }
+                project.getEmployees().add(savedEmployee);
+                projectRepository.save(project);
             }
         }
 
