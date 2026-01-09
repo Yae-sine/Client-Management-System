@@ -13,6 +13,6 @@ public class TaskDto {
     private String title;
     private String description;
     private TaskStatus status;
-    private Long projectId;
+    private ProjectDto project;
 
 }

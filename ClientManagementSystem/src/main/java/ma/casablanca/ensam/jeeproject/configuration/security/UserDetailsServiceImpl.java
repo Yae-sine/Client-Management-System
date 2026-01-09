@@ -25,13 +25,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         String login;
         String password;
         List<GrantedAuthority> authorities = new ArrayList<>();
-        List<ma.casablanca.ensam.jeeproject.dao.entities.User> users = userRepository.findByEmail(username);
-        if(users.isEmpty()){
+        ma.casablanca.ensam.jeeproject.dao.entities.User user = userRepository.findByUsername(username);
+        if(user == null) {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }
-        password = users.get(0).getPassword();
-        login = users.get(0).getUsername();
-        authorities.add(new SimpleGrantedAuthority(users.get(0).getRole()));
+        password = user.getPassword();
+        login = user.getUsername();
+        authorities.add(new SimpleGrantedAuthority(user.getRole()));
         return new User(login , password , authorities);
     }
 

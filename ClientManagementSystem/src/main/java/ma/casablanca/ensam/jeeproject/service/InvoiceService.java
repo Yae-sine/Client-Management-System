@@ -1,15 +1,15 @@
 package ma.casablanca.ensam.jeeproject.service;
 
-import ma.casablanca.ensam.jeeproject.dao.entities.Invoice;
+import ma.casablanca.ensam.jeeproject.dto.InvoiceDto;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface InvoiceService {
-    public List<Invoice> getInvoices();
-    public Invoice addInvoice(Invoice invoice);
-    public Invoice updateInvoice(Invoice invoice);
-    public Invoice deleteInvoice(Long id);
-    public List<Invoice> getInvoicesByProjectId(Long projectId);
-    public Invoice getInvoice(Long id);
-
+    List<InvoiceDto> getInvoices();
+    InvoiceDto addInvoice(InvoiceDto invoiceDto);
+    InvoiceDto updateInvoice(InvoiceDto invoiceDto);
+    boolean deleteInvoice(Long id);
+    List<InvoiceDto> getInvoicesByProjectId(Long projectId);
+    Optional<InvoiceDto> getInvoice(Long id);
 }

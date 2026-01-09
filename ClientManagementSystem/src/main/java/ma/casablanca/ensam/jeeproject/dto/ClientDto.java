@@ -17,5 +17,6 @@ public class ClientDto {
     private String lastName;
     private Long phoneNumber;
     private String address;
-    private List<Project> projects;
+    private String email;
+    private List<ProjectDto> projects;
 }

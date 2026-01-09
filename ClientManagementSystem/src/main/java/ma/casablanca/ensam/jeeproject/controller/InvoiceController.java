@@ -1,5 +1,6 @@
 package ma.casablanca.ensam.jeeproject.controller;
-import ma.casablanca.ensam.jeeproject.dao.entities.Invoice;
+
+import ma.casablanca.ensam.jeeproject.dto.InvoiceDto;
 import ma.casablanca.ensam.jeeproject.service.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/invoices")
@@ -16,36 +18,42 @@ public class InvoiceController {
     private InvoiceService invoiceService;
 
     @PostMapping("/create")
-    public String createInvoice(Model model , Invoice invoice ,RedirectAttributes redirectAttributes){
-        Invoice invoice1 = invoiceService.addInvoice(invoice);
+    public String createInvoice(InvoiceDto invoiceDto, RedirectAttributes redirectAttributes){
+        InvoiceDto newInvoice = invoiceService.addInvoice(invoiceDto);
+        if(newInvoice == null){
+            redirectAttributes.addFlashAttribute("message", "Invoice creation failed");
+            return "redirect:/invoices";
+        }
         redirectAttributes.addFlashAttribute("message", "Invoice created successfully");
-        model.addAttribute("invoice", invoice1);
         return "redirect:/invoices";
     }
 
-
     @PutMapping("/update")
-    public String updateInvoice(Model model , Invoice invoice , RedirectAttributes redirectAttributes){
-        Invoice updatedInvoice = invoiceService.updateInvoice(invoice);
+    public String updateInvoice(InvoiceDto invoiceDto, RedirectAttributes redirectAttributes){
+        InvoiceDto updatedInvoice = invoiceService.updateInvoice(invoiceDto);
+        if(updatedInvoice == null){
+            redirectAttributes.addFlashAttribute("message", "Invoice update failed");
+            return "redirect:/invoices";
+        }
         redirectAttributes.addFlashAttribute("message", "Invoice updated successfully");
-        model.addAttribute("invoice", updatedInvoice);
         return "redirect:/invoices";
     }
 
     @DeleteMapping("/delete")
-    public String deleteInvoice(Model model , Long id , RedirectAttributes redirectAttributes){
-        Invoice deletedInvoice = invoiceService.deleteInvoice(id);
-        if(deletedInvoice != null){
+    public String deleteInvoice(@RequestParam Long id, RedirectAttributes redirectAttributes){
+        boolean deletedInvoice = invoiceService.deleteInvoice(id);
+        if(deletedInvoice){
             redirectAttributes.addFlashAttribute("message", "Invoice deleted successfully");
             return "redirect:/invoices";
         }
         redirectAttributes.addFlashAttribute("message", "Invoice delete failed");
         return "redirect:/invoices";
     }
+
     @GetMapping("projectInvoices/{projectId}")
-    public String getInvoicesByProjectId(Model model , @PathVariable Long projectId ){
-        List<Invoice> invoices = invoiceService.getInvoicesByProjectId(projectId);
-        model.addAttribute("invoices" , invoices);
+    public String getInvoicesByProjectId(@PathVariable Long projectId, Model model){
+        List<InvoiceDto> invoices = invoiceService.getInvoicesByProjectId(projectId);
+        model.addAttribute("invoices", invoices);
         if(invoices.isEmpty()){
             model.addAttribute("message", "No Invoices");
         }
@@ -53,13 +61,13 @@ public class InvoiceController {
     }
 
     @GetMapping("/{id}")
-    public String getInvoice(Model model , @PathVariable Long id , RedirectAttributes redirectAttributes){
-        Invoice invoice = invoiceService.getInvoice(id);
-        if(invoice == null){
+    public String getInvoice(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes){
+        Optional<InvoiceDto> invoice = invoiceService.getInvoice(id);
+        if(invoice.isEmpty()){
             redirectAttributes.addFlashAttribute("message", "Invoice not found");
             return "redirect:/invoices";
         }
-        model.addAttribute("invoice" , invoice);
+        model.addAttribute("invoice", invoice.get());
         return "invoiceDetails";
     }
 }

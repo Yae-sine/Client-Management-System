@@ -12,5 +12,5 @@ public class InvoiceDto {
     private Long id;
     private Long amount;
     private InvoiceStatus status;
-    private Long projectId;
+    private ProjectDto project;
 }

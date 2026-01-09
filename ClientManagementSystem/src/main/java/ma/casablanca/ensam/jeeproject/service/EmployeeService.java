@@ -1,16 +1,16 @@
 package ma.casablanca.ensam.jeeproject.service;
 
-import ma.casablanca.ensam.jeeproject.dao.entities.Employee;
-import ma.casablanca.ensam.jeeproject.dao.entities.Project;
-import ma.casablanca.ensam.jeeproject.dao.entities.User;
+import ma.casablanca.ensam.jeeproject.dto.EmployeeDto;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface EmployeeService {
-    public Employee  addEmployee(Employee employee);
-    public Employee updateEmployee(Employee employee);
-    public boolean deleteEmployee(Long id);
-    public Employee getEmployee(Long id);
-    public Employee getEmployeeByLastName(String name);
-    public List<Employee> getEmployees();
+    EmployeeDto addEmployee(EmployeeDto employeeDto);
+    EmployeeDto addEmployeeWithProject(EmployeeDto employeeDto, Long projectId);
+    EmployeeDto updateEmployee(EmployeeDto employeeDto);
+    boolean deleteEmployee(Long id);
+    Optional<EmployeeDto> getEmployee(Long id);
+    EmployeeDto getEmployeeByLastName(String name);
+    List<EmployeeDto> getEmployees();
 }

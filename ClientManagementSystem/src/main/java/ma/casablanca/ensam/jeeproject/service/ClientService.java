@@ -1,17 +1,14 @@
 package ma.casablanca.ensam.jeeproject.service;
 
-
-import ma.casablanca.ensam.jeeproject.dao.entities.Client;
+import ma.casablanca.ensam.jeeproject.dto.ClientDto;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ClientService {
-    public List<Client> getClients();
-    public  Client findClientByEmail(String email);
-    public Client findClientByFirstName(String firstName);
-    public Client findCLientByLastName(String lastName);
-    public Client getClient(Long id);
-    public Client addClient(Client client);
-    public Client updateClient(Client client);
-    public boolean deleteClient(Long id);
+    List<ClientDto> getClients();
+    Optional<ClientDto> getClient(Long id);
+    ClientDto addClient(ClientDto clientDto);
+    ClientDto updateClient(ClientDto clientDto);
+    boolean deleteClient(Long id);
 }

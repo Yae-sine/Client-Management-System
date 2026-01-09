@@ -21,8 +21,9 @@ public class ProjectDto {
     private LocalDateTime endDate;
     private ProjectStatus status;
     private Long budget;
-    private Long clientId;
-    private List<Task> tasks;
-    private List<Invoice> invoices;
-    private List<Employee> employees;
+    private String description;
+    private ClientDto client;
+    private List<TaskDto> tasks;
+    private List<InvoiceDto> invoices;
+    private List<EmployeeDto> employees;
 }

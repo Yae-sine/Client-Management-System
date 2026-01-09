@@ -17,5 +17,5 @@ public class EmployeeDto {
     private String lastName;
     private String email;
     private String position;
-    private List<Project> projects;
+    private List<ProjectDto> projects;
 }
