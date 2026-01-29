@@ -1,15 +1,11 @@
 # Client Management System
 
-<div align="center">
-
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)
-![Thymeleaf](https://img.shields.io/badge/Thymeleaf-005F0F?style=for-the-badge&logo=thymeleaf&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-06B6D4?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
-![Maven](https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=apache-maven&logoColor=white)
-![Java](https://img.shields.io/badge/Java%2017-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
-</div>
-
+![Java](https://img.shields.io/badge/Java-17-orange)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.7-brightgreen)
+![Thymeleaf](https://img.shields.io/badge/Thymeleaf-3.x-green)
+![Tailwind](https://img.shields.io/badge/Tailwind-CSS-38B2AC)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue)
+![Maven](https://img.shields.io/badge/Maven-Build%20Tool-red)
 
 A comprehensive enterprise solution for managing clients, employees, projects, tasks, and invoices. Built with modern Java technologies, this application provides a secure and intuitive interface for business operations, featuring role-based access control, real-time project tracking, and automated invoice generation.
 
